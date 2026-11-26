@@ -1,0 +1,20 @@
+# Code owners are requested for review automatically when a pull request
+# touches matching paths. Uncomment each line once that member has accepted
+# their collaborator invite, replacing the placeholder with their GitHub
+# username. GitHub only accepts owners who have write access.
+
+# Repository settings, CI/CD workflows and templates: Team Lead
+/.github/               @ed1thub
+
+# Front end
+# /client/                @GH_DAKSH
+
+# API
+# /server/                @GH_GAGAN
+
+# Authentication, tokens and RBAC: backend lead plus security reviewer
+# /server/src/auth/       @GH_GAGAN @GH_ANAS
+# /server/src/middleware/ @GH_GAGAN @GH_ANAS
+
+# Documents and diagrams
+# /docs/                  @ed1thub @GH_NAVDEEP

@@ -5,3 +5,21 @@ node_modules/
 .qodo/
 coverage/
 dist/
+
+# Build output
+build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Editor and OS files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local MongoDB data (Docker volume mounts)
+data/db/
