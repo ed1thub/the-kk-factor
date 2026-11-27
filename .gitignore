@@ -21,5 +21,3 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 
-# Local MongoDB data (Docker volume mounts)
-data/db/
