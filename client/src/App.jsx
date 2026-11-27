@@ -25,7 +25,6 @@ function App() {
         <ul>
           <li>API: {health.status}</li>
           <li>Database: {health.database}</li>
-          <li>Environment: {health.environment}</li>
         </ul>
       )}
     </main>

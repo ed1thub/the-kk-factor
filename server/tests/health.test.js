@@ -8,6 +8,7 @@ describe('GET /api/health', () => {
     expect(res.status).toBe(200)
     expect(res.body.status).toBe('ok')
     expect(['connected', 'disconnected']).toContain(res.body.database)
+    expect(Object.keys(res.body).sort()).toEqual(['database', 'status'])
   })
 
   it('sets security headers and hides X-Powered-By', async () => {

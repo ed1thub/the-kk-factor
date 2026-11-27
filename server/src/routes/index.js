@@ -1,8 +1,8 @@
 const { Router } = require('express')
-const healthRoutes = require('./health.routes')
+const healthRoutes = require('./healthRoutes')
 
 // Mounts every API route under /api.
-// Auth routes (T1.08) and news routes (T1.13) are added here.
+// Planned: authRoutes (T1.08) and articleRoutes (T1.13).
 const router = Router()
 
 router.use('/health', healthRoutes)

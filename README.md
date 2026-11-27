@@ -15,29 +15,41 @@ BN304 Industry Based Project 2, Group G1_Mel. Client, Product Owner and Supervis
 | Navdeep Arora | Data, CMS & QA Lead |
 | Anas Delowar | Floating Role, extra hand for all members |
 
+## Project objectives
+
+From the project proposal:
+
+- An online news portal with categories, search and real-time updates
+- Live radio streaming, so users can listen to broadcast stations in the application
+- A music player with playlists, audio controls and background playback
+- A content management system (CMS) for administrators to manage articles, media and live content schedules
+- A responsive, user-friendly UI/UX across all devices
+- Scalability and security, including user authentication and role management
+
 ## Technology stack
 
-- Client: React (Vite)
-- API: Node.js with Express
-- Database: MongoDB Atlas (Docker Compose MongoDB for local development)
-- Audio: HTML5 Audio API
-- Hosting (staging): Azure Static Web Apps (client), Azure App Service (API), Azure Blob Storage
-- CI/CD: GitHub Actions
+- Front end: React, built with Vite
+- Back end: Node.js and Express, with Socket.IO for real-time updates over WebSockets
+- Database: MongoDB Atlas (a local MongoDB in Docker for development)
+- Streaming: Icecast/SHOUTcast radio streams played through the HTML5 Audio API
+- Hosting: Azure Static Web Apps (front end), Azure App Service (API) and Azure Blob Storage (media)
+- Source control and CI/CD: Git, GitHub and GitHub Actions
+
+Socket.IO, streaming, Blob Storage and the Azure deployment are added by later tasks; this README is updated as each one lands.
 
 ## Repository structure
 
 ```
 client/     React (Vite) front end
 server/     Express API
-docs/       Test plan, diagrams and other project documents
-.github/    Pull request template, code owners and workflows
+.github/    Pull request template and code owners (CI/CD workflows from T1.02)
 ```
 
 ## Local setup
 
 ### Prerequisites
 
-- Node.js 22 LTS (`.nvmrc` is provided; run `nvm use` if you use nvm)
+- Node.js 22 LTS, version 22.12 or later (`.nvmrc` is provided; run `nvm use` if you use nvm)
 - Docker Desktop (for the local MongoDB)
 - Git
 
@@ -74,16 +86,21 @@ Each app has a `.env.example` listing every variable it needs. Copy it to `.env`
 ### API layout
 
 ```
-server/src/
-  app.js            Express app: security headers, CORS allowlist, JSON body limit, routes
-  server.js         Starts the app and connects to MongoDB
-  config/           Environment variables and database connection
-  routes/           Route modules, mounted under /api
-  middleware/       Shared middleware (404, error handler; auth middleware from T1.11)
-  auth/             Authentication and RBAC (T1.08 to T1.11)
-  models/           Mongoose schemas
-server/tests/       Jest and Supertest tests
+server/
+  src/
+    app.js          Express app: security headers, CORS allowlist, JSON body limit, routes
+    server.js       Starts the app and connects to MongoDB
+    config/         Environment variables (env.js) and database connection (db.js)
+    routes/         Route files, mounted under /api (healthRoutes.js; auth and article routes to come)
+    controllers/    Request handlers called by the routes (healthController.js; more to come)
+    middleware/     Shared middleware (errorMiddleware.js; auth and role middleware to come)
+    models/         Mongoose schemas
+  scripts/          One-off scripts such as the database seed
+  docs/             API documentation, including the OpenAPI contract
+  tests/            Jest and Supertest tests
 ```
+
+Each folder that is still empty has a short README saying which task fills it.
 
 ## Contributing
 
