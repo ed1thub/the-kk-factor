@@ -1,0 +1,20 @@
+# Local development database only. Staging and production use MongoDB Atlas.
+# Start: docker compose up -d    Stop: docker compose down
+services:
+  mongo:
+    image: mongo:8
+    container_name: kkfactor-mongo
+    restart: unless-stopped
+    ports:
+      # Bound to localhost only, so the unauthenticated dev database is never exposed to the network.
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mongo-data:

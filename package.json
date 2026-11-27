@@ -1,0 +1,24 @@
+{
+  "name": "the-kk-factor",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The KK Factor: Online News Portal with Live Radio, Music Player and Live News Streaming (BN304, G1_Mel)",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "dev": "concurrently -n api,web -c blue,magenta \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w client",
+    "test": "npm test -w server",
+    "lint": "npm run lint -w client"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.7"
+  }
+}
