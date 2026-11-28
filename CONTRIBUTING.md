@@ -69,6 +69,7 @@ Examples:
 
 - Title: `T1.xx: short description`, for example `T1.08: Register and login endpoints`.
 - Fill in every section of the pull request template, including the Definition of Done checklist.
+- The **CI** check (lint, tests and client build) must pass before merge. Save time by running `npm run lint`, `npm test` and `npm run build` locally before you push.
 - At least one approving review from another member is required before merge.
 - Pull requests that touch authentication, tokens or role-based access control also need a review from Anas Delowar (security reviewer).
 - Resolve every review comment before merging.

@@ -8,8 +8,8 @@ function notFound(req, res) {
 // Central error handler. Express recognises it by its four arguments.
 // In production it never returns stack traces or internal error messages to the client,
 // so implementation details are not exposed (OWASP Top 10: Security Misconfiguration).
-// "next" is unused but must stay: Express only treats four-argument functions as error handlers.
-function errorHandler(err, req, res, next) {
+// "_next" is unused but must stay: Express only treats four-argument functions as error handlers.
+function errorHandler(err, req, res, _next) {
   const status = err.status || err.statusCode || 500
 
   if (status >= 500) {
