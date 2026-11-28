@@ -211,7 +211,7 @@ The repository is public, so evidence must never contain passwords, tokens, conn
 | Web vulnerabilities in authentication (risk R3 in the risk register) | Security defects found late | Threat model first (T1.23); security tests written from it; Anas Delowar reviews auth pull requests |
 | Integration conflicts between modules (risk R8) | Regression failures in Week 3 | OpenAPI contract (T1.22); CI on every pull request; branches kept short |
 | Lighthouse score variability | Inconsistent pass or fail on TC-04-04 | Median of three runs with fixed settings |
-| Cross-site cookies between Static Web Apps and App Service | Login may work locally but fail on staging | Cookie and hosting approach agreed between T1.09 and T1.18; verified by TC-03-03 on staging |
+| Cross-site cookies between Static Web Apps and App Service | Login may work locally but fail on staging | Resolved in T1.18: the API is linked to Static Web Apps, so `/api` calls are same-site (docs/staging.md); verified by TC-03-03 on staging |
 
 ## References
 

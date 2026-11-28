@@ -42,7 +42,7 @@ Socket.IO, streaming, Blob Storage and the Azure deployment are added by later t
 ```
 client/     React (Vite) front end
 server/     Express API
-docs/       Test plan and Definition of Done checklist
+docs/       Test plan, Definition of Done checklist and staging environment
 .github/    Pull request template, code owners and the CI workflow
 ```
 
