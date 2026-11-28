@@ -23,7 +23,3 @@ Thumbs.db
 
 # Private project documents (proposal, sprint plans, reports). Never commit.
 docs/private/
-
-# Local tool and editor configuration. Each member keeps their own copy.
-CLAUDE.md
-.claude/
