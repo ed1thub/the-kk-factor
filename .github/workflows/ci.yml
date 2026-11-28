@@ -1,6 +1,6 @@
 # Continuous integration (T1.02).
 # Runs on every pull request and on every push to main.
-# A pull request can only be merged into main when this check passes (branch protection).
+# Branch protection requires both jobs below to pass before a pull request can be merged into main.
 name: CI
 
 on:
