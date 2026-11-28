@@ -68,6 +68,6 @@ A backlog item counts as done only when all of the following hold:
 
 ## 5. Sprint 1 notes
 
-- **Staging arrives in Week 3.** Until T1.18 and T1.19 are complete, items can satisfy DoD items 1 to 3 but not item 4. They are recorded as "merged, waiting for staging" and completed once staging is live.
+- **Automatic deployment arrives in Week 3.** The staging environment exists (T1.18), but code reaches it only once T1.19 is complete. Until then, items can satisfy DoD items 1 to 3 but not item 4. They are recorded as "merged, waiting for staging" and completed once staging is live.
 - **Accessibility threshold.** "No critical accessibility issues" is measured with axe, which rates each issue as minor, moderate, serious or critical. Critical issues block Done. Serious issues are logged as Medium defects and planned at backlog refinement.
 - **Severity levels** for defects are defined in the test plan, Section 6.

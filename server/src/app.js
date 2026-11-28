@@ -8,7 +8,9 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware')
 // The app is built here and started in server.js, so tests can import it without opening a port.
 const app = express()
 
-// Azure App Service sits behind a proxy; needed for correct client IPs (login throttling, T1.09).
+// On Azure, requests reach the API through proxies (Static Web Apps, then the App Service front end).
+// Express needs this to read the real client IP for login throttling. The number of trusted
+// hops is confirmed against staging request headers in T1.09 before throttling relies on it.
 app.set('trust proxy', 1)
 
 // Secure-by-default baseline. The full policy (CSP and HSTS tuning, rate limiting,

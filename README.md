@@ -35,14 +35,14 @@ From the project proposal:
 - Hosting: Azure Static Web Apps (front end), Azure App Service (API) and Azure Blob Storage (media)
 - Source control and CI/CD: Git, GitHub and GitHub Actions (CI runs lint, tests, the client build and a Gitleaks secret scan on every pull request)
 
-Socket.IO, streaming, Blob Storage and the Azure deployment are added by later tasks; this README is updated as each one lands.
+The Azure staging environment is provisioned (T1.18, see [docs/staging.md](docs/staging.md)); automatic deployment to it is added in T1.19. Socket.IO and streaming are added in later sprints. This README is updated as each one lands.
 
 ## Repository structure
 
 ```
 client/     React (Vite) front end
 server/     Express API
-docs/       Test plan and Definition of Done checklist
+docs/       Test plan, Definition of Done checklist and staging environment
 .github/    Pull request template, code owners and the CI workflow
 ```
 

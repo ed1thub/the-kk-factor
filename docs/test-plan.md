@@ -207,11 +207,11 @@ The repository is public, so evidence must never contain passwords, tokens, conn
 
 | Risk | Effect on testing | Mitigation |
 | --- | --- | --- |
-| Staging is not ready until late in the sprint (T1.18, T1.19) | Staging tests (TC-01-05, TC-01-06, TC-04-03 to TC-04-06, TC-03-10) squeezed into Week 3 | Run every test that can run locally or in CI first; staging tests are scheduled straight after T1.19 |
+| Automatic deployment to staging (T1.19) is not in place until Week 3 | Staging tests (TC-01-05, TC-01-06, TC-04-03 to TC-04-06, TC-03-10) squeezed into Week 3 | Staging environment provisioned early (T1.18, docs/staging.md); every test that can run locally or in CI runs first; staging tests are scheduled straight after T1.19 |
 | Web vulnerabilities in authentication (risk R3 in the risk register) | Security defects found late | Threat model first (T1.23); security tests written from it; Anas Delowar reviews auth pull requests |
 | Integration conflicts between modules (risk R8) | Regression failures in Week 3 | OpenAPI contract (T1.22); CI on every pull request; branches kept short |
 | Lighthouse score variability | Inconsistent pass or fail on TC-04-04 | Median of three runs with fixed settings |
-| Cross-site cookies between Static Web Apps and App Service | Login may work locally but fail on staging | Cookie and hosting approach agreed between T1.09 and T1.18; verified by TC-03-03 on staging |
+| Cross-site cookies between Static Web Apps and App Service | Login may work locally but fail on staging | Resolved in T1.18: the API is linked to Static Web Apps, so `/api` calls are same-site (docs/staging.md); verified by TC-03-03 on staging |
 
 ## References
 
