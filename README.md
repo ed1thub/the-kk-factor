@@ -33,7 +33,7 @@ From the project proposal:
 - Database: MongoDB Atlas (a local MongoDB in Docker for development)
 - Streaming: Icecast/SHOUTcast radio streams played through the HTML5 Audio API
 - Hosting: Azure Static Web Apps (front end), Azure App Service (API) and Azure Blob Storage (media)
-- Source control and CI/CD: Git, GitHub and GitHub Actions (CI runs lint, tests and the client build on every pull request)
+- Source control and CI/CD: Git, GitHub and GitHub Actions (CI runs lint, tests, the client build and a Gitleaks secret scan on every pull request)
 
 Socket.IO, streaming, Blob Storage and the Azure deployment are added by later tasks; this README is updated as each one lands.
 
