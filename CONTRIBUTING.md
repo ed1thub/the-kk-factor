@@ -103,3 +103,5 @@ A backlog item counts as done only when all of the following hold:
 3. Automated tests pass in CI with no high or critical security findings;
 4. It is deployed to HTTPS staging and verified on mobile and desktop, with no critical accessibility issues;
 5. The Product Owner accepts it at the Sprint Review.
+
+The checklists for authors, reviewers and story owners, and how each item is verified, are in [docs/definition-of-done.md](docs/definition-of-done.md).
