@@ -33,7 +33,7 @@ From the project proposal:
 - Database: MongoDB Atlas (a local MongoDB in Docker for development)
 - Streaming: Icecast/SHOUTcast radio streams played through the HTML5 Audio API
 - Hosting: Azure Static Web Apps (front end), Azure App Service (API) and Azure Blob Storage (media)
-- Source control and CI/CD: Git, GitHub and GitHub Actions
+- Source control and CI/CD: Git, GitHub and GitHub Actions (CI runs lint, tests and the client build on every pull request)
 
 Socket.IO, streaming, Blob Storage and the Azure deployment are added by later tasks; this README is updated as each one lands.
 
@@ -42,7 +42,7 @@ Socket.IO, streaming, Blob Storage and the Azure deployment are added by later t
 ```
 client/     React (Vite) front end
 server/     Express API
-.github/    Pull request template and code owners (CI/CD workflows from T1.02)
+.github/    Pull request template, code owners and the CI workflow
 ```
 
 ## Local setup
@@ -76,7 +76,7 @@ The home page shows the API and database status. "Database: connected" means eve
 | `npm run dev` | Runs the API (port 4000) and client (port 5173) with auto-reload |
 | `npm run db:up` / `npm run db:down` | Starts or stops the local MongoDB container |
 | `npm test` | Runs the API tests (Jest and Supertest) |
-| `npm run lint` | Lints the client |
+| `npm run lint` | Lints the client and server (warnings fail the check) |
 | `npm run build` | Builds the client for production |
 
 ### Environment variables
