@@ -1,6 +1,6 @@
 # Staging environment (Azure)
 
-Task T1.18 (US-01). This document records how the staging environment is built and secured. It contains no secrets: passwords, keys and connection strings live only in Azure App Service settings (and, once deployment is set up in T1.19, in GitHub Actions secrets).
+Tasks T1.18 and T1.19 (US-01). This document records how the staging environment is built and secured. It contains no secrets: passwords, keys and connection strings live only in Azure App Service settings and in the GitHub `staging` environment secrets.
 
 ## 1. Architecture
 
@@ -31,6 +31,7 @@ Azure Blob Storage (private container "media")  used by the media upload task (T
 | Static Web App (client) | `swa-kkfactor-stg` | East Asia (content served globally) | Standard |
 | Storage account | `stkkfactorstg32326` | Australia Southeast | Standard LRS, StorageV2, Hot |
 | Database | Atlas cluster `kkfactor-staging` | AWS Sydney (ap-southeast-2) | M0 (free) |
+| Deployment identity | Managed identity `id-kkfactor-deploy` | Australia Southeast | User-assigned managed identity |
 
 Staging client URL: https://blue-plant-05f65f500.4.azurestaticapps.net
 
@@ -42,9 +43,10 @@ Staging client URL: https://blue-plant-05f65f500.4.azurestaticapps.net
 
 - HTTPS only; plain HTTP redirects to HTTPS (301)
 - Minimum TLS 1.2; TLS 1.1 connections are refused
-- FTP and FTPS disabled; basic-auth publishing credentials disabled for both FTP and the deployment endpoint (deployments will use GitHub Actions with Microsoft Entra ID sign-in, set up in T1.19)
+- FTP and FTPS disabled; basic-auth publishing credentials disabled for both FTP and the deployment endpoint (deployments use GitHub Actions with Microsoft Entra ID sign-in, see Section 6)
 - Accepts only traffic proxied through the linked static web app (direct requests return 401)
 - Always On, HTTP/2
+- Startup command `node src/server.js`; `SCM_DO_BUILD_DURING_DEPLOYMENT=false` (the deployment package already contains the production dependencies)
 - App settings: `NODE_ENV=production` (no stack traces in error responses), `CLIENT_ORIGIN` (the static web app URL), `MONGODB_URI` (secret)
 
 **Storage**
@@ -93,3 +95,24 @@ Prices are Azure list prices in AUD (Azure Retail Prices API, 28/11/2026).
 
 - Funded from the Azure for Students credit.
 - Subscription budget `kkfactor-budget`: AUD 100, with email alerts to the subscription owner at 50%, 80% and 100% of actual spend and at 100% of forecast spend.
+
+## 6. Deployment (T1.19)
+
+Workflow: `.github/workflows/deploy.yml`.
+
+1. Starts when the CI workflow succeeds for a push to `main`, so only code that passed lint, tests, the build and the secret scan is deployed. It can also be started by hand from the Actions tab.
+2. Builds the client and uploads it to Static Web Apps.
+3. Packages the API with its production dependencies only and deploys it to App Service.
+4. Smoke test through the static web app (the same path a browser uses): the home page must load over HTTPS and `/api/health` must report `"database": "connected"` within 3 minutes, otherwise the run fails.
+
+| Target | How the workflow signs in | Stored in GitHub (`staging` environment) |
+| --- | --- | --- |
+| App Service (API) | OpenID Connect as managed identity `id-kkfactor-deploy`. Its federated credential trusts only tokens for subject `repo:ed1thub/the-kk-factor:environment:staging`. Role: Website Contributor on the API web app only. | `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID` (identifiers, not passwords) |
+| Static Web Apps (client) | Deployment token | `AZURE_STATIC_WEB_APPS_API_TOKEN` (secret) |
+
+- The GitHub environment `staging` accepts deployments only from protected branches (`main`), and its secrets are available only to jobs that deploy to it.
+- No Azure password or publish profile exists in GitHub; basic-auth publishing stays disabled on the App Service.
+- Actions in the workflow are pinned to full commit SHAs, as in CI.
+- If the Static Web Apps deployment token is ever exposed, reset it in the Azure portal (Static Web App, Overview, Manage deployment token, Reset) and update the GitHub secret.
+
+**Client routing and headers** (`client/public/staticwebapp.config.json`): any path that is not under `/api` and is not a file is served `index.html`, so refreshing a page on a client-side route does not return 404. The static web app also sends `Strict-Transport-Security`, `X-Content-Type-Options`, `X-Frame-Options` and `Referrer-Policy` headers; the full content security policy is set in T2.15.

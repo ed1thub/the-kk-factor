@@ -33,9 +33,9 @@ From the project proposal:
 - Database: MongoDB Atlas (a local MongoDB in Docker for development)
 - Streaming: Icecast/SHOUTcast radio streams played through the HTML5 Audio API
 - Hosting: Azure Static Web Apps (front end), Azure App Service (API) and Azure Blob Storage (media)
-- Source control and CI/CD: Git, GitHub and GitHub Actions (CI runs lint, tests, the client build and a Gitleaks secret scan on every pull request)
+- Source control and CI/CD: Git, GitHub and GitHub Actions (CI runs lint, tests, the client build and a Gitleaks secret scan on every pull request; merges to `main` deploy to Azure staging)
 
-The Azure staging environment is provisioned (T1.18, see [docs/staging.md](docs/staging.md)); automatic deployment to it is added in T1.19. Socket.IO and streaming are added in later sprints. This README is updated as each one lands.
+Every merge to `main` that passes CI is deployed automatically to the Azure staging environment (T1.18 and T1.19, see [docs/staging.md](docs/staging.md)). Socket.IO and streaming are added in later sprints. This README is updated as each one lands.
 
 ## Repository structure
 
@@ -43,7 +43,7 @@ The Azure staging environment is provisioned (T1.18, see [docs/staging.md](docs/
 client/     React (Vite) front end
 server/     Express API
 docs/       Test plan, Definition of Done checklist and staging environment
-.github/    Pull request template, code owners and the CI workflow
+.github/    Pull request template, code owners, and the CI and deployment workflows
 ```
 
 ## Local setup
