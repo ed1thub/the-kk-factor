@@ -2,19 +2,25 @@
 # touches matching paths. Uncomment each line once that member has accepted
 # their collaborator invite, replacing the placeholder with their GitHub
 # username. GitHub only accepts owners who have write access.
+# When several lines match a file, the last matching line wins.
 
 # Repository settings, CI/CD workflows and templates: Team Lead
-/.github/               @ed1thub
+/.github/                                     @ed1thub
 
 # Front end
-# /client/                @GH_DAKSH
+# /client/                                      @GH_DAKSH
 
 # API
-# /server/                @GH_GAGAN
+# /server/                                      @GH_GAGAN
 
 # Authentication, tokens and RBAC: backend lead plus security reviewer
-# /server/src/auth/       @GH_GAGAN @GH_ANAS
-# /server/src/middleware/ @GH_GAGAN @GH_ANAS
+# /server/src/controllers/authController.js     @GH_GAGAN @GH_ANAS
+# /server/src/routes/authRoutes.js              @GH_GAGAN @GH_ANAS
+# /server/src/middleware/authMiddleware.js      @GH_GAGAN @GH_ANAS
+# /server/src/middleware/roleMiddleware.js      @GH_GAGAN @GH_ANAS
+# /server/src/models/User.js                    @GH_GAGAN @GH_ANAS
 
-# Documents and diagrams
-# /docs/                  @ed1thub @GH_NAVDEEP
+# Data model and seed script
+# /server/src/models/Article.js                 @GH_NAVDEEP
+# /server/src/models/Category.js                @GH_NAVDEEP
+# /server/scripts/                              @GH_NAVDEEP

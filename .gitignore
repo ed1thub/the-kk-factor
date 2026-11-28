@@ -21,9 +21,6 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 
-# Local MongoDB data (Docker volume mounts)
-data/db/
-
 # Private project documents (proposal, sprint plans, reports). Never commit.
 docs/private/
 
