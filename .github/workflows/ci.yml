@@ -1,0 +1,51 @@
+# Continuous integration (T1.02).
+# Runs on every pull request and on every push to main.
+# A pull request can only be merged into main when this check passes (branch protection).
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# Least privilege: the workflow can only read the repository.
+permissions:
+  contents: read
+
+# If new commits are pushed to the same pull request, cancel the older run.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-test-build:
+    name: Lint, test and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      # Third-party actions are pinned to a full commit SHA so a moved tag cannot change what runs.
+      - name: Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js (version from .nvmrc)
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies (exact versions from package-lock.json)
+        run: npm ci
+
+      - name: Lint client and server
+        run: npm run lint
+
+      - name: Run API tests
+        run: npm test
+        env:
+          NODE_ENV: test
+
+      - name: Build client
+        run: npm run build
