@@ -42,6 +42,7 @@ Socket.IO, streaming, Blob Storage and the Azure deployment are added by later t
 ```
 client/     React (Vite) front end
 server/     Express API
+docs/       Test plan and Definition of Done checklist
 .github/    Pull request template, code owners and the CI workflow
 ```
 
@@ -104,4 +105,4 @@ Each folder that is still empty has a short README saying which task fills it.
 
 ## Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before you open your first branch. In short: never commit to `main` directly, create one branch per task, and open a pull request that fills in the template.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before you open your first branch. Testing and quality rules are in [docs/test-plan.md](docs/test-plan.md) and [docs/definition-of-done.md](docs/definition-of-done.md). In short: never commit to `main` directly, create one branch per task, and open a pull request that fills in the template.
