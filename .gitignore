@@ -24,6 +24,6 @@ Thumbs.db
 # Private project documents (proposal, sprint plans, reports). Never commit.
 docs/private/
 
-# Local Claude Code context. Each member keeps their own copy.
+# Local tool and editor configuration. Each member keeps their own copy.
 CLAUDE.md
 .claude/
