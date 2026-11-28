@@ -35,7 +35,7 @@ Testing is built into the development workflow rather than left to the end of th
 | --- | --- | --- | --- |
 | Static checks | Code style and common errors in client and server | oxlint (in CI) | Every pull request |
 | Code review | Correctness, readability, security, tests present | GitHub pull request review (1 approval required) | Every pull request |
-| Secret scanning | No credentials committed | GitHub secret scanning and push protection; Gitleaks in CI (T1.25) | Every push and pull request |
+| Secret scanning | No credentials committed | GitHub push protection (every push); Gitleaks in CI (T1.25) | Every push; every pull request and merge to `main` |
 | Unit tests | Individual functions and modules (for example password hashing, role checks) | Jest | Every pull request |
 | API integration tests | Endpoints with their middleware (status codes, headers, cookies, response bodies) | Jest and Supertest | Every pull request |
 | Security tests | Authentication, session and access-control controls, written from the threat model (T1.23) and the OWASP Top 10:2025 [2], following OWASP WSTG v4.2 test cases [3] | Jest and Supertest, browser developer tools | Week 2 and 3 |
@@ -44,6 +44,8 @@ Testing is built into the development workflow rather than left to the end of th
 | Responsive and manual checks | Layout at 360, 768 and 1280 px; main user journeys | Chrome DevTools device mode, one real phone | Week 3 (T1.26) |
 | Design reviews | Wireframes, ERD, topology and workflow diagrams, spike reports | Review at the Monday workshop | Week 1 and 2 |
 | Acceptance | Each story against its acceptance criteria | Live demo on staging | Sprint Review, 14/12/2026 |
+
+Tests TC-01-01 to TC-01-03 are run from a team member's account, because the repository owner can bypass branch protection in an emergency.
 
 **Regression suite (T1.21):** all automated tests in CI plus the manual smoke checks in Section 5.5, run on staging after the last Sprint 1 merge.
 
@@ -73,7 +75,7 @@ Testing is built into the development workflow rather than left to the end of th
 1. Every test case in Section 5 has a recorded result.
 2. Every acceptance criterion of US-01 to US-04 has passed.
 3. No open Critical or High defects (Section 6).
-4. The CI check passes on `main`.
+4. Both CI checks pass on `main`.
 5. Evidence is stored as described in Section 9.
 
 ## 5. Test cases
@@ -86,13 +88,13 @@ Acceptance criteria: pull requests merge only when CI passes; staging deploys au
 
 | ID | Test | Expected result | Type | Task |
 | --- | --- | --- | --- | --- |
-| TC-01-01 | Push directly to `main` without a pull request | Push rejected by branch protection | Manual | T1.01 |
-| TC-01-02 | Open a pull request with a failing test | CI check fails and the merge button stays blocked | Manual | T1.02 |
-| TC-01-03 | Open a pull request with no approving review | Merge blocked until one approval is given | Manual | T1.01 |
+| TC-01-01 | As a team member (not the repository owner), push directly to `main` without a pull request | Push rejected by branch protection | Manual | T1.01 |
+| TC-01-02 | As a team member, open a pull request with a failing test | CI check fails and the merge button stays blocked | Manual | T1.02 |
+| TC-01-03 | As a team member, open a pull request with no approving review | Merge blocked until one approval is given | Manual | T1.01 |
 | TC-01-04 | Open a new pull request | Template appears with the Definition of Done checklist | Inspection | T1.01 |
 | TC-01-05 | Merge a change to `main` and time it until the new version answers on staging | New version live on staging within 10 minutes of the merge | Manual, timed | T1.19 |
 | TC-01-06 | Request the client and API over `http://` | Redirected to `https://`; no content served over plain HTTP | Manual | T1.19 |
-| TC-01-07 | Push a branch containing a dummy secret in a generic format (not a real provider token, which push protection would block before CI) | Gitleaks fails the CI check | Manual | T1.25 |
+| TC-01-07 | Open a pull request from a branch containing a dummy secret in a generic format (not a real provider token, which push protection would block before CI) | Gitleaks fails the CI check | Manual | T1.25 |
 
 ### 5.2 US-02: Validated requirements, design, architecture and streaming spikes
 

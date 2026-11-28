@@ -32,7 +32,7 @@ A backlog item counts as done only when all of the following hold:
 | --- | --- | --- | --- | --- |
 | 1 | Peer-reviewed and merged | At least one approving review from another member, then **Squash and merge** into `main`. Authentication, token and RBAC changes also reviewed by the security reviewer. | Reviewer | Approved and merged pull request |
 | 2 | Acceptance criteria pass | Every test case linked to the story's acceptance criteria has passed | Task owner, then QA lead | Test case results (test plan, Section 5) |
-| 3 | CI passes with no high or critical security findings | The **Lint, test and build** check passes; secret scanning reports nothing; in Sprint 1 the reviewer also runs `npm audit --audit-level=high` locally until dependency scanning is automated in T2.16 | Author and reviewer | CI run linked from the pull request |
+| 3 | CI passes with no high or critical security findings | Both CI checks pass (**Lint, test and build** and **Secret scan (Gitleaks)**); push protection has not been bypassed; in Sprint 1 the reviewer also runs `npm audit --audit-level=high` locally until dependency scanning is automated in T2.16 | Author and reviewer | CI run linked from the pull request |
 | 4 | Deployed to HTTPS staging, verified on mobile and desktop, no critical accessibility issues | Change is live on staging over HTTPS; UI changes checked at 360 px (mobile) and 1280 px (desktop); axe shows no critical violations on changed pages. API-only changes are verified by calling the endpoint on staging. | Task owner | Screenshots and axe results in `docs/test-evidence/` |
 | 5 | Product Owner accepts it at the Sprint Review | Live demonstration of each acceptance criterion | Product Owner | Sprint Review notes |
 
@@ -56,7 +56,7 @@ A backlog item counts as done only when all of the following hold:
 - [ ] Tests cover the new behaviour, including at least one failure case
 - [ ] No secrets or personal data in code, tests or screenshots
 - [ ] `npm audit --audit-level=high` reports no high or critical findings
-- [ ] CI check is green
+- [ ] Both CI checks are green
 
 ### 4.3 Before the Sprint Review (story owner)
 
