@@ -79,7 +79,19 @@ az webapp show -g rg-kkfactor-staging -n kkfactor-api-stg-32326 --query possible
 | Atlas database user privileges | `readWrite@kkfactor` only |
 | Atlas IP access list | Exactly the 19 App Service outbound IPs |
 
-The end-to-end check (`/api/health` reporting `"database": "connected"` through the static web app) runs once the code is deployed in T1.19.
+**After the first automatic deployment (T1.19, 28/11/2026):**
+
+| Check | Result |
+| --- | --- |
+| `/api/health` through the static web app | `{"status":"ok","database":"connected"}` (App Service reaches Atlas) |
+| Plain HTTP request to the client | 301 redirect to HTTPS (TC-01-06) |
+| Plain HTTP request to the API | 301 redirect to HTTPS (TC-01-06) |
+| Direct HTTPS request to the API | 401 (only proxied traffic accepted) |
+| Client-side route refreshed in the browser | 200 (served `index.html`) |
+| Unknown `/api` path through the static web app | 404 with a JSON error from the API |
+| Client response headers | `Strict-Transport-Security`, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy` present |
+| API response headers | Helmet `Content-Security-Policy` present; no `X-Powered-By` |
+| Deployment workflow smoke test | Passed |
 
 ## 5. Cost control
 
@@ -107,7 +119,7 @@ Workflow: `.github/workflows/deploy.yml`.
 
 | Target | How the workflow signs in | Stored in GitHub (`staging` environment) |
 | --- | --- | --- |
-| App Service (API) | OpenID Connect as managed identity `id-kkfactor-deploy`. Its federated credential trusts only tokens for subject `repo:ed1thub/the-kk-factor:environment:staging`. Role: Website Contributor on the API web app only. | `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID` (identifiers, not passwords) |
+| App Service (API) | OpenID Connect as managed identity `id-kkfactor-deploy`. Its federated credential trusts only tokens for subject `repo:ed1thub@152958274/the-kk-factor@1424129467:environment:staging` (GitHub includes the owner and repository ID numbers, so a renamed or recreated repository with the same name is not trusted). Role: Website Contributor on the API web app only. | `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID` (identifiers, not passwords) |
 | Static Web Apps (client) | Deployment token | `AZURE_STATIC_WEB_APPS_API_TOKEN` (secret) |
 
 - The GitHub environment `staging` accepts deployments only from protected branches (`main`), and its secrets are available only to jobs that deploy to it.
