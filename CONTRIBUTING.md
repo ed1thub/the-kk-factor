@@ -6,7 +6,7 @@ This guide sets out how the team uses Git and GitHub. It applies to every member
 
 We use a simple trunk-based flow (GitHub Flow).
 
-- `main` is the only long-lived branch. It must always build and pass CI. Once deployment is set up (T1.19), every merge to `main` deploys to Azure staging.
+- `main` is the only long-lived branch. It must always build and pass CI. Every merge to `main` deploys to Azure staging automatically once CI passes (T1.19).
 - `main` is protected. Members cannot push to it directly, force-push to it or delete it. All changes reach `main` through a reviewed pull request with passing CI. Only the repository owner can bypass these rules, and only in an emergency; any bypassed merge is reviewed afterwards.
 - Every task gets its own short-lived branch, created from the latest `main`.
 
