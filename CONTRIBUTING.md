@@ -69,7 +69,7 @@ Examples:
 
 - Title: `T1.xx: short description`, for example `T1.08: Register and login endpoints`.
 - Fill in every section of the pull request template, including the Definition of Done checklist.
-- The **CI** check (lint, tests and client build) must pass before merge. Save time by running `npm run lint`, `npm test` and `npm run build` locally before you push.
+- Both **CI** checks must pass before merge: **Lint, test and build**, and **Secret scan (Gitleaks)**. Save time by running `npm run lint`, `npm test` and `npm run build` locally before you push.
 - At least one approving review from another member is required before merge.
 - Pull requests that touch authentication, tokens or role-based access control also need a review from Anas Delowar (security reviewer).
 - Resolve every review comment before merging.
@@ -91,6 +91,8 @@ Approve only when you would be happy to own the code yourself.
 ## 6. Secrets
 
 Never commit secrets. Connection strings, JWT secrets and API keys go in a local `.env` file (ignored by Git) and in GitHub Actions secrets or Azure App Service settings for deployed environments. Commit a `.env.example` file with the variable names and dummy values instead.
+
+Two safeguards catch mistakes: GitHub push protection blocks pushes that contain known provider tokens, and the Gitleaks check in CI scans the whole Git history for any secret. Neither replaces care.
 
 If a secret is committed by mistake, tell the Team Lead straight away. The secret must be rotated, because deleting the commit does not remove it from Git history.
 
